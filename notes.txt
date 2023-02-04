@@ -1,0 +1,3 @@
+select user from mysql.user;
+
+create user 'admindjango'@'localhost' identified by 'employee@123!';
