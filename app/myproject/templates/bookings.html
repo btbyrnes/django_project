@@ -35,7 +35,7 @@
 <!-- Add your code inside the script tags below  -->
 <script>
   const bookings = parse('{{ bookings | safe }}')
-  log(bookings)
+  console.log(bookings)
 
   pretty_json = stringify(bookings, null, 2)
 
