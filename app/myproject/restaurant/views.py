@@ -7,6 +7,10 @@ from datetime import datetime
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
+from rest_framework.generics import ListCreateAPIView, RetrieveUpdateAPIView, DestroyAPIView
+from rest_framework.viewsets import ModelViewSet
+
+from .serializers import MenuItemSerializer, BookingSerializer
 
 
 # Create your views here.
@@ -14,12 +18,24 @@ def index(request):
     return render(request, "index.html", {})
 
 
-def home(request):
-    return render(request, 'index.html')
-
-
 def about(request):
     return render(request, 'about.html')
+
+
+class MenuItemView(ListCreateAPIView):
+    queryset = Menu.objects.all()
+    serializer_class = MenuItemSerializer
+
+
+class SingleMenuItemView(RetrieveUpdateAPIView, DestroyAPIView):
+    queryset = Menu.objects.all()
+    serializer_class = MenuItemSerializer
+
+
+class BookingViewSet(ModelViewSet):
+    queryset = Booking.objects.all()
+    serializer_class = BookingSerializer
+    pass
 
 
 def reservations(request):
