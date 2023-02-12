@@ -48,7 +48,6 @@
   </article>
 </section>
 <script>
-
   const date = new Date();
   document.getElementById('reservation_date').value = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate().toString().padStart(2, "0")}`;
 
@@ -56,7 +55,6 @@
 
   /*  Step 10: Part two */
   document.getElementById("reservation_date").addEventListener("change", getBookings);
-
 
   function getBookings() {
     console.log("");

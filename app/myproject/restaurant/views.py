@@ -2,6 +2,8 @@ from django.shortcuts import render
 from .forms import BookingForm
 from django.core import serializers
 from datetime import datetime
+from django.utils import timezone
+
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
@@ -73,7 +75,7 @@ def bookings(request):
         if exist==False:
             booking = Booking(
                 first_name=data['first_name'],
-                booking_date=datetime.now(),
+                booking_date=timezone.now(),
                 reservation_date=data['reservation_date'],
                 reservation_slot=data['reservation_slot'],
             )
@@ -81,11 +83,10 @@ def bookings(request):
         else:
             return HttpResponse("{'error':1}", content_type='application/json')
     
-    # date = request.GET.get('date',datetime.today().date())
-    date = datetime.today().date()
+    date = request.GET.get('reservation_date')
     print(date)
     bookings = Booking.objects.all().filter(reservation_date=date)
-    print(bookings)
     booking_json = serializers.serialize('json', bookings)
+    print(booking_json)
 
     return HttpResponse(booking_json, content_type='application/json')
