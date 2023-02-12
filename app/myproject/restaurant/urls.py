@@ -1,15 +1,19 @@
 from django.urls import path
-from . import views
+from .views import index, about, book, bookings, reservations
+from littlelemonAPI.views import MenuItemView, SingleMenuItemView
 
 
 urlpatterns = [
-    path("", views.index, name="index"),
-    path('about/', views.about, name="about"),
-    path('book/', views.book, name="book"),
-    path('reservations/', views.reservations, name="reservations"),
-    
-    path('menu/', views.MenuItemView.as_view()),
-    path('menu/<int:pk>/', views.SingleMenuItemView.as_view()),  
+    path("", index, name="index"),
+    path("home/", index, name="home"),
+    path('about/', about, name="about"),
+    path('book/', book, name="book"),
+    path('bookings/', bookings, name='bookings'), 
+    path('reservations/', reservations, name="reservations"),
 
-    path('bookings/', views.bookings, name='bookings'), 
+    path('menu/', about, name="menu"),
+    
+    path('menu-item/', MenuItemView.as_view()),
+    path('menu-item/<int:pk>/', SingleMenuItemView.as_view()),  
+
 ]
