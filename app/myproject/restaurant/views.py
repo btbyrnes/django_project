@@ -10,9 +10,9 @@ from django.http import HttpResponse
 from rest_framework.viewsets import ModelViewSet
 
 
-from .models import Booking
+from littlelemonAPI.models import Booking
 from littlelemonAPI.models import MenuItem
-from .serializers import BookingSerializer
+from littlelemonAPI.serializers import BookingSerializer
 
 
 # Create your views here.
@@ -24,8 +24,8 @@ def about(request):
     return render(request, 'about.html')
 
 
-# def home(request):
-#     return index(request)
+def menu(request):
+    return render(request, "menu.html")
 
 
 class BookingViewSet(ModelViewSet):

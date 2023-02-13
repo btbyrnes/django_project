@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from .models import Booking
+from littlelemonAPI.models import Booking
 
 
 # Code added for loading form data on the Booking page
