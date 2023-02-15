@@ -9,10 +9,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from rest_framework.viewsets import ModelViewSet
 
-
-from littlelemonAPI.models import Booking
-from littlelemonAPI.models import MenuItem
-from littlelemonAPI.serializers import BookingSerializer
+from reservations.models import Reservation
+from reservations.serializers import ReservationSerializer
+from reservations.views import ReservationView
+from menu.models import MenuItem
 
 
 # Create your views here.
@@ -29,14 +29,14 @@ def menu(request):
 
 
 class BookingViewSet(ModelViewSet):
-    queryset = Booking.objects.all()
-    serializer_class = BookingSerializer
+    queryset = Reservation.objects.all()
+    serializer_class = ReservationSerializer
     pass
 
 
 def reservations(request):
     date = request.GET.get('date',datetime.today().date())
-    bookings = Booking.objects.all()
+    bookings = reservations.objects.all()
     booking_json = serializers.serialize('json', bookings)
     return render(request, 'bookings.html',{"bookings":booking_json})
 
@@ -66,14 +66,15 @@ def display_menu_item(request, pk=None):
     return render(request, 'menu_item.html', {"menu_item": menu_item}) 
 
 
+## TO DO: Return the api endpoint
 @csrf_exempt
 def bookings(request):
     if request.method == 'POST':
         data = json.load(request)
-        exist = Booking.objects.filter(reservation_date=data['reservation_date']).filter(
+        exist = Reservation.objects.filter(reservation_date=data['reservation_date']).filter(
             reservation_slot=data['reservation_slot']).exists()
         if exist==False:
-            booking = Booking(
+            booking = Reservation(
                 first_name=data['first_name'],
                 booking_date=timezone.now(),
                 reservation_date=data['reservation_date'],
@@ -85,7 +86,7 @@ def bookings(request):
     
     date = request.GET.get('reservation_date')
     print(date)
-    bookings = Booking.objects.all().filter(reservation_date=date)
+    bookings = Reservation.objects.all().filter(reservation_date=date)
     booking_json = serializers.serialize('json', bookings)
     print(booking_json)
 

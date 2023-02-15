@@ -40,6 +40,8 @@ INSTALLED_APPS = [
     # The settings for app updated for the Graded assessment
     'restaurant',
     'littlelemonAPI',
+    'menu',
+    'reservations',
     'rest_framework',
     'rest_framework.authtoken',
 ]

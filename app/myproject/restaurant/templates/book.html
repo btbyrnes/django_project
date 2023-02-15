@@ -48,7 +48,7 @@
   </article>
 </section>
 <script>
-  const date = new Date();
+  let date = new Date();
   document.getElementById('reservation_date').value = `${date.getFullYear()}-${date.getMonth() + 1}-${date.getDate().toString().padStart(2, "0")}`;
 
   getBookings();
@@ -60,7 +60,7 @@
     console.log("");
     console.log("getBookings()");
     let reserved_slots = [];
-    const date = document.getElementById('reservation_date').value;
+    let date = document.getElementById('reservation_date').value;
     document.getElementById('today').innerHTML = date;
 
     fetch("{% url 'bookings' %}" + '?reservation_date=' + date)
@@ -68,12 +68,11 @@
       .then(data => {
         reserved_slots = []
         bookings = ''
-        
-        console.log("data");
-        console.log(data);
 
         /* Step 11: Part three */
         for (let item of data) {
+          console.log("item");
+          console.log(item);
           reserved_slots.push(item.fields.reservation_slot);
           bookings += `<p>${item.fields.first_name} - ${formatTime(item.fields.reservation_slot)}</p>`;
         }
@@ -97,7 +96,7 @@
         document.getElementById('bookings').innerHTML = bookings
       })
   }
-
+  
   function formatTime(time) {
     const ampm = time < 12 ? 'AM' : 'PM'
     const t = time < 12 ? time : time > 12 ? time - 12 : time
