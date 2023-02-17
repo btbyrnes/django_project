@@ -9,11 +9,10 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import HttpResponse
 from rest_framework.viewsets import ModelViewSet
 
-from reservations.models import Reservation
-from reservations.serializers import ReservationSerializer
-from reservations.views import ReservationView
-from menu.models import MenuItem
+from api.serializers import ReservationSerializer
+from api.views import ReservationView
 
+from .models import MenuItem, Reservation
 
 # Create your views here.
 def index(request):
@@ -34,11 +33,12 @@ class BookingViewSet(ModelViewSet):
     pass
 
 
+## TO DO: Add filtering by reservation date
 def reservations(request):
     date = request.GET.get('date',datetime.today().date())
-    bookings = reservations.objects.all()
-    booking_json = serializers.serialize('json', bookings)
-    return render(request, 'bookings.html',{"bookings":booking_json})
+    booking_json = "{'None'}"
+    
+    return render(request=request, template_name='bookings.html', context={"bookings":booking_json})
 
 
 def book(request):
@@ -65,6 +65,10 @@ def display_menu_item(request, pk=None):
         menu_item = "" 
     return render(request, 'menu_item.html', {"menu_item": menu_item}) 
 
+
+def res(request):
+    return render(request, "res.html")
+    
 
 ## TO DO: Return the api endpoint
 @csrf_exempt

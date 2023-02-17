@@ -29,10 +29,32 @@
   </article>
 </section>
 <script>
-  const bookings = JSON.parse('{{ bookings|safe }}')
-  console.log(bookings);
-  const pretty_json = JSON.stringify(bookings,null,2)
-  document.getElementById('bookings').innerHTML = pretty_json
+
+  getReservations();
+
+    function getReservations() {
+        console.log("getReservations");
+        bookings = '';
+        console.log("bookings");
+        console.log(bookings);
+        console.log("----");
+        fetch("{% url 'api:reservations' %}")
+        .then(r => r.json())
+        .then(data => {
+            console.log(data)
+            for (let item of data) {
+                console.log(data);
+                bookings += `<p>${JSON.stringify(item, null, 2)}</p>`;
+            }
+            console.log(bookings);
+            document.getElementById("bookings").innerHTML = bookings;
+        });        
+    }
+
+  // const bookings = JSON.parse('{{ bookings|safe }}');
+  // console.log(bookings);
+  // const pretty_json = JSON.stringify(bookings,null,2);
+  // document.getElementById('bookings').innerHTML = pretty_json;
 </script>
 {% endblock %}
 

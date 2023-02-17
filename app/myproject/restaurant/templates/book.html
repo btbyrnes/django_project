@@ -63,7 +63,7 @@
     let date = document.getElementById('reservation_date').value;
     document.getElementById('today').innerHTML = date;
 
-    fetch("{% url 'bookings' %}" + '?reservation_date=' + date)
+    fetch("{% url 'api:reservations' %}" + '?reservation_date=' + date)
       .then(r => r.json())
       .then(data => {
         reserved_slots = []

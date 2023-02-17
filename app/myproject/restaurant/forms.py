@@ -1,5 +1,5 @@
 from django.forms import ModelForm
-from reservations.models import Reservation
+from .models import Reservation
 
 
 # Code added for loading form data on the Booking page
