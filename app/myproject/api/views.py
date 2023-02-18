@@ -1,5 +1,5 @@
 from django.shortcuts import render
-from rest_framework.generics import ListAPIView, RetrieveUpdateDestroyAPIView
+from rest_framework.generics import ListCreateAPIView, ListAPIView, RetrieveUpdateDestroyAPIView
 
 from restaurant.models import MenuItem, Reservation
 
@@ -16,7 +16,7 @@ class SingleMenuItemView(RetrieveUpdateDestroyAPIView):
     serializer_class = MenuItemSerializer
     
     
-class ReservationView(ListAPIView):
+class ReservationView(ListCreateAPIView):
     queryset = Reservation.objects.all()
     serializer_class = ReservationSerializer
 
