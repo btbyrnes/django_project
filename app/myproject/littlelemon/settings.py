@@ -147,6 +147,7 @@ REST_FRAMEWORK = {
         # "rest_framework_xml.renderers.XMLRenderer",
     ],
     'DEFAULT_AUTHENTICATION_CLASSES': (
+        # 'rest_framework.authentication.BasicAuthentication',  # enables simple command line authentication
         'rest_framework.authentication.TokenAuthentication',
         'rest_framework.authentication.SessionAuthentication',
     ),
@@ -157,4 +158,6 @@ REST_FRAMEWORK = {
 
 DJOSER = {
     "USER_ID_FIELD": "username",
+    "LOGIN_FIELD": "username",
+    "HIDE_USERS": True,
 }
