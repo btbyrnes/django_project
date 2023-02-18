@@ -1,0 +1,2 @@
+/api/reservations/
+/auth/users/
